@@ -6,14 +6,15 @@ import {
     reduxifyNavigator,
     createReactNavigationReduxMiddleware,
   } from 'react-navigation-redux-helpers';
-import LoginScreen from '../components/LoginScreen'
-import HomeScreen from '../components/HomeScreen'
-import ProfileScreen from '../components/ProfileScreen'
-import RosterScreen from '../components/RosterScreen'
-import QuizScreen from '../components/QuizScreen'
-import RandomScreen from '../components/RandomScreen'
-import CoursesScreen from '../components/CoursesScreen'
-import CodeRunnerScreen from '../components/CodeRunnerScreen'
+import LoginScreen from '../components/LoginScreen.js'
+import HomeScreen from '../components/HomeScreen.js'
+import ProfileScreen from '../components/ProfileScreen.js'
+import RosterScreen from '../components/RosterScreen.js'
+import QuizScreen from '../components/QuizScreen.js'
+import RandomScreen from '../components/RandomScreen.js'
+import CoursesScreen from '../components/CoursesScreen.js'
+import CodeRunnerScreen from '../components/CodeRunnerScreen.js'
+import PairsScreen from '../components/PairsScreen.js'
 
 
 const middleware = createReactNavigationReduxMiddleware(
@@ -91,6 +92,7 @@ const RootNavigator = createStackNavigator({
     Random: { screen: RandomScreen },
     Courses: { screen: CoursesScreen },
     CodeRunner: { screen: CodeRunnerScreen },
+    Pairs:{screen:PairsScreen}
   },{transitionConfig: noTransitionConfig});
 const AppWithNavigationState = reduxifyNavigator(RootNavigator, 'root');
 

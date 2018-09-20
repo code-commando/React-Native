@@ -1,47 +1,43 @@
 import React,{Fragment} from 'react';
-import { Animated,
-  Easing,
-  Image,
-  Dimensions,
+import { Dimensions,
   Platform,View, Text, Button, FlatList, StyleSheet } from 'react-native';
-const API = 'http://api.commando.ccs.net/api/v1/roster';
-const window = Dimensions.get('window');
-export default class RosterScreen extends React.Component {
+
+const API = 'http://api.commando.ccs.net/api/v1/roster/pairs';
+// const window = Dimensions.get('window');
+export default class PairsScreen extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      student: '',
-      allStudents: [],
+      studentPairs: [],
   }
 }
-
 _keyExtractor = (index) => index+'';
 componentDidMount(){
 
     fetch(API)
     .then((res) => res.json())
-    .then((roster) => {
-      let allStudents = (roster.results);
-      this.setState({allStudents});
+    .then((pairs) => {
+      let studentPairs = (pairs.results);
+      this.setState({studentPairs});
           })
 }
 
     render() {
         return (
            
-          <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+          <View style={{ flex: 1, alignItems: 'center',justifyContent: 'center' }}>
            <FlatList 
-           data={[...this.state.allStudents]} 
+           data={[...this.state.studentPairs]} 
            keyExtractor={this._keyExtractor}
-           renderItem={({item}) => <Text style={styles.row}>{item}</Text>}/>
+           renderItem={({item}) => <Text style={styles.row}>{item[0] + '  '+item[1]}</Text>}/>
           </View>
          
           
         );
       }
   }
-  RosterScreen.navigationOptions = {
-    title: 'Roster',
+  PairsScreen.navigationOptions = {
+    title: 'Student Pairs',
   };
   const styles = StyleSheet.create({
     container: {
@@ -70,7 +66,7 @@ componentDidMount(){
     marginTop: 7,
     marginBottom: 12,
     borderRadius: 4,
-    fontSize: 20,
+    fontSize: 24,
     color: '#222222',
 
 

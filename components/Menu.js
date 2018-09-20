@@ -99,6 +99,14 @@ const Menu = ({ isLoggedIn, dispatch,onItemSelected }) => {
       </Text>
       <Text
         onPress={() =>
+        dispatch(NavigationActions.navigate({ routeName: 'Pairs' }))}
+        
+        style={styles.item}
+      >
+        Pairs
+      </Text>
+      <Text
+        onPress={() =>
           dispatch(NavigationActions.navigate({ routeName: 'Random' }))}
         style={styles.item}
       >
