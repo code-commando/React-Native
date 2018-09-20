@@ -1,31 +1,3 @@
-// import React,{Fragment} from 'react';
-// import { View, Text,Button } from 'react-native';
-// import { createStackNavigator } from 'react-navigation';
-// //import Menu from './Menu.js'
-// class HomeScreen extends React.Component {
-//     static navigationOptions = {
-//       title: 'Welcome',
-//     };
-//     render() {
-//         return (
-           
-//           <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-//             <Text>Welcome to code commando</Text>
-//             <Button
-//           title="Go to Login"
-//           onPress={() => this.props.navigation.navigate('Login')}
-//         />
-//           </View>
-         
-          
-//         );
-//       }
-//   }
-//   export default createStackNavigator({
-//     Home: {
-//       screen: HomeScreen
-//     },
-//   })
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
