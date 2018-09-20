@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, StyleSheet, Text,TextInput, View } from 'react-native';
-import { TextField } from 'react-native-material-textfield';
+import { Button, TouchableOpacity,StyleSheet, Text,TextInput, View } from 'react-native';
+//import { TextField } from 'react-native-material-textfield';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -14,6 +14,21 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     margin: 10,
   },
+  input: {
+    margin: 15,
+    height: 40,
+    borderColor: '#7a42f4',
+    borderWidth: 1
+ },
+ submitButton: {
+    backgroundColor: '#7a42f4',
+    padding: 10,
+    margin: 15,
+    height: 40,
+ },
+ submitButtonText:{
+    color: 'white'
+ }
 });
 
 class LoginScreen extends React.Component{
@@ -24,39 +39,43 @@ class LoginScreen extends React.Component{
       password: 'Password'
     };
   }
-
+  onChange = event => {
+    const changedValue = {
+      [event.target.name]: event.target.value
+    };
+    this.setState(changedValue);
+  };
   render(){
-    let { username } = this.state;
-    let { password } = this.state;
+   
   return(
   <View style={styles.container}>
-    <Text style={styles.welcome}>
-      Welcome to login Screen
-    </Text>
-    <TextField
-        label='User Name'
-       
-        onChangeText={ (username) => this.setState({ username }) }
-      />
-      <TextField
-        label='Password'
-        defaultValue={password}
-        onChangeText={ (password) => this.setState({ password }) }
-      />
     <TextInput
-        style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-        // onChangeText={(text) => this.setState({text})}
-        value='  User Name        '
+        style = {styles.input}
+        onChangeText={(username) => this.setState({username})}
+        underlineColorAndroid = 'transparent'
+        placeholder = 'Username'
+        placeholderTextColor = '#9a73ef'
+        autoCapitalize = 'none'
       />
       <TextInput
-        style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-        // onChangeText={(text) => this.setState({text})}
-        value='  Password          '
+       style = {styles.input}
+        onChangeText={(password) => this.setState({password})}
+        underlineColorAndroid = "transparent"
+        placeholder = "Password"
+        placeholderTextColor = "#9a73ef"
+        autoCapitalize = "none"
       />
-    <Button
+    {/* <Button
       onPress={() => this.props.navigation.dispatch({ type: 'Login' })}
       title="Login"
-    />
+    /> */}
+    <TouchableOpacity
+               style = {styles.submitButton}
+               onPress = {
+                () => this.props.navigation.dispatch({ type: 'Login' })
+               }>
+               <Text style = {styles.submitButtonText}> Login </Text>
+            </TouchableOpacity>
   </View>
   )
   }
@@ -67,7 +86,7 @@ LoginScreen.propTypes = {
 };
 
 LoginScreen.navigationOptions = {
-  title: 'Log In',
+  title: 'Login Page',
 };
 
 export default LoginScreen;
