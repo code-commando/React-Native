@@ -1,46 +1,16 @@
-import React, { Component } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TouchableOpacity,
-} from 'react-native';
+import React from 'react'
+import { StyleSheet, View,Image, StatusBar,AppRegistry,TouchableOpacity } from 'react-native'
+import { Provider } from 'react-redux'
+import { createStore, applyMiddleware } from 'redux';
+import AppReducer from './reducer/index.js';
 import SideMenu from 'react-native-side-menu';
-import Menu from './Menu';
+import Menu from './components/Menu'
+import {AppNavigator,middleware} from './navigation/AppNavigation'
+import image from './assets/menu.png'
+// create store
+const store = createStore(AppReducer, applyMiddleware(middleware));
 
-const image = require('./assets/menu.png');
-
-const styles = StyleSheet.create({
-  button: {
-    position: 'absolute',
-    top: 20,
-    padding: 10,
-  },
-  caption: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    alignItems: 'center',
-  },
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
-
-export default class App extends Component {
+class App extends React.Component {
   constructor(props) {
     super(props);
 
@@ -48,7 +18,7 @@ export default class App extends Component {
 
     this.state = {
       isOpen: false,
-      selectedItem: 'About',
+      selectedItem: 'Home',
     };
   }
 
@@ -67,26 +37,21 @@ export default class App extends Component {
       isOpen: false,
       selectedItem: item,
     });
-
+    
   render() {
-    const menu = <Menu onItemSelected={this.onMenuItemSelected} />;
-
+    const menu = <Menu onItemSelected={this.onMenuItemSelected}/>
     return (
+      <Provider store={store}>
       <SideMenu
         menu={menu}
+        menuPosition='right'
         isOpen={this.state.isOpen}
+        openMenuOffset={250}
         onChange={isOpen => this.updateMenuState(isOpen)}
       >
         <View style={styles.container}>
-          <Text style={styles.welcome}>
-            Welcome to Code Commando
-          </Text>
-          <Text style={styles.instructions}>
-            Please signin to get started
-          </Text>
-          <Text style={styles.instructions}>
-            Slide the sidebar to right to open up Menu
-          </Text>
+        <StatusBar barStyle='light-content' />
+          <AppNavigator />
         </View>
         <TouchableOpacity
           onPress={this.toggle}
@@ -97,7 +62,33 @@ export default class App extends Component {
             style={{ width: 32, height: 32 }}
           />
         </TouchableOpacity>
-      </SideMenu>
-    );
+        </SideMenu>
+      </Provider>
+    )
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff'
+  },
+  button: {
+    position: 'absolute',
+    top: 20,
+    right:10,
+    padding: 10,
+  },
+})
+AppRegistry.registerComponent('CodeCommando', () => App);
+
+export default App;
+
+
+
+
+
+
+
+
+

@@ -1,8 +1,7 @@
 import React,{Component} from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import {NavigationActions} from 'react-navigation';
-import { StackNavigator } from 'react-navigation';
-import MainScreen from './MainScreen.js';
 import {
   Dimensions,
   StyleSheet,
@@ -43,20 +42,29 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     paddingTop: 5,
   },
+  item2: {
+    fontSize: 30,
+    fontWeight: '400',
+    paddingTop: 50,
+  },
 });
 
-export default class Menu extends Component {
-    constructor(props){
-        super(props)
-    }
-    navigateToScreen = (route) => () => {
-        const navigateAction = NavigationActions.navigate({
-          routeName: route
-        });
-        this.props.navigation.dispatch(navigateAction);
-      }
-    
-    render(){
+const Menu = ({ isLoggedIn, dispatch,onItemSelected }) => {
+  if (!isLoggedIn) {
+    return (
+      <ScrollView scrollsToTop={false} style={styles.menu}>
+      <Text
+        onPress={() =>{
+          dispatch(NavigationActions.navigate({ routeName: 'Login' }))}
+        }
+        style={styles.item2}
+      >
+        Login
+      </Text>
+      </ScrollView>
+    )
+  }
+  
   return (
     <ScrollView scrollsToTop={false} style={styles.menu}>
       <View style={styles.avatarContainer}>
@@ -67,60 +75,70 @@ export default class Menu extends Component {
         <Text style={styles.name}>Your name</Text>
       </View>
       <Text
-        onPress={this.navigateToScreen('Login')}
+        onPress={() =>{
+          dispatch(NavigationActions.navigate({ routeName: 'Home' }))}
+        }
         style={styles.item}
       >
-        Login
+        Home
       </Text>
       <Text
-        onPress={this.navigateToScreen('Dashboard')}
-        style={styles.item}
-      >
-        Dashboard
-      </Text>
-      <Text
-        onPress={this.navigateToScreen('Courses')}
+       onPress={() =>
+        dispatch(NavigationActions.navigate({ routeName: 'Courses' }))}
         style={styles.item}
       >
         Courses
       </Text>
       <Text
-        onPress={this.navigateToScreen('Roster')}
+        onPress={() =>
+        dispatch(NavigationActions.navigate({ routeName: 'Roster' }))}
+        
         style={styles.item}
       >
         Roster
       </Text>
       <Text
-        onPress={this.navigateToScreen('Random')}
+        onPress={() =>
+          dispatch(NavigationActions.navigate({ routeName: 'Random' }))}
         style={styles.item}
       >
         Random
       </Text>
       <Text
-        onPress={this.navigateToScreen('Quiz')}
+        onPress={() =>
+          dispatch(NavigationActions.navigate({ routeName: 'Quiz' }))}
         style={styles.item}
       >
         Quiz
       </Text>
 
       <Text
-        onPress={this.navigateToScreen('CodeRunner')}
+        onPress={() =>
+          dispatch(NavigationActions.navigate({ routeName: 'CodeRunner' }))}
         style={styles.item}
       >
         CodeRunner
       </Text>
 
-      <Text
+      {/* <Text
         onPress={this.navigateToScreen('About')}
         style={styles.item}
       >
         About
-      </Text>
+      </Text> */}
     </ScrollView>
   );
-}
+
 }
 
 Menu.propTypes = {
+  isLoggedIn: PropTypes.bool.isRequired,
+  dispatch: PropTypes.func.isRequired,
   onItemSelected: PropTypes.func.isRequired,
 };
+
+const mapStateToProps = state => ({
+  isLoggedIn: state.auth.isLoggedIn,
+});
+
+export default connect(mapStateToProps)(Menu);
