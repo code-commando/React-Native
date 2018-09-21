@@ -14,14 +14,15 @@ const styles = StyleSheet.create({
 
 const LoginStatusMessage = ({ isLoggedIn, dispatch }) => {
   if (!isLoggedIn) {
-    return <Text>Please log in</Text>;
+    return (<View style={styles.container}>
+    <Text>Welcome to Code Commando!!</Text></View>);
   }
   return (
     <View>
       <Text style={styles.welcome}>
-        {'You are "logged in" right now'}
+        {'You are "logged in" right now!! Click on hamburger menu or pull the screen right to left'}
       </Text>
-      <Button
+      {/* <Button
         onPress={() =>
           dispatch(NavigationActions.navigate({ routeName: 'Random' }))}
         title="Random"
@@ -35,7 +36,7 @@ const LoginStatusMessage = ({ isLoggedIn, dispatch }) => {
         onPress={() =>
           dispatch(NavigationActions.navigate({ routeName: 'Roster' }))}
         title="Roster"
-      />
+      /> */}
     </View>
   );
 };
