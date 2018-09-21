@@ -61,7 +61,7 @@ componentDidMount(){
     alignItems: 'center',
     backgroundColor: '#fff',
     padding: 16,
-    height: 80,
+    height: 95,
     flex: 1,
     marginTop: 7,
     marginBottom: 12,
