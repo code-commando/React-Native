@@ -27,6 +27,12 @@ function nav(state = initialNavState, action) {
         state
       );
       break;
+      case 'Home':
+      nextState = RootNavigator.router.getStateForAction(
+        NavigationActions.navigate({ routeName: 'Home' }),
+        state
+      );
+      break;
     default:
       nextState = RootNavigator.router.getStateForAction(action, state);
       break;
