@@ -20,12 +20,14 @@ function nav(state = initialNavState, action) {
         NavigationActions.back(),
         state
       );
+      console.log('Login',nextState)
       break;
     case 'Logout':
       nextState = RootNavigator.router.getStateForAction(
         NavigationActions.navigate({ routeName: 'Login' }),
         state
       );
+      console.log('Logout',nextState)
       break;
       case 'Home':
       nextState = RootNavigator.router.getStateForAction(
@@ -47,6 +49,7 @@ const initialAuthState = { isLoggedIn: false };
 function auth(state = initialAuthState, action) {
   switch (action.type) {
     case 'Login':
+    console.log('login state',action)
       return { ...state, isLoggedIn: true };
     case 'Logout':
       return { ...state, isLoggedIn: false };
@@ -54,6 +57,8 @@ function auth(state = initialAuthState, action) {
       return state;
   }
 }
+
+
 
 const AppReducer = combineReducers({
   nav,

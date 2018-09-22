@@ -5,75 +5,95 @@ import Container from './styles/Container';
 import Button from './styles/Button';
 import Label from './styles/Label';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { Constants, WebBrowser, AuthSession, Linking } from 'expo';
 class LoginScreen extends React.Component{
   constructor(props){
     super(props)
     this.state = {
       username: 'User Name',
-      password: 'Password'
+      password: 'Password',
+      result:'',
+      cookie:null,
+      redirectData: null,
     };
   }
-  press() {
-    //execute any code here
-  }
-  onChange = event => {
-    const changedValue = {
-      [event.target.name]: event.target.value
-    };
-    this.setState(changedValue);
-  };
   render(){
    
-  return(
-    <ScrollView style={styles.scroll}>
-    <Container>
-    <Button 
-        label="Forgot Login/Pass"
-        styles={{button: styles.alignRight, label: styles.label}} 
-        onPress={this.press.bind(this)} />
-</Container>
-<Container>
-    <Label text="Username or Email" />
-    <TextInput
-        style={styles.textInput}
-    />
-</Container>
-<Container>
-    <Label text="Password" />
-    <TextInput
-        secureTextEntry={true}
-        style={styles.textInput}
-    />
-</Container>
-{/* <Container>
-    <Button 
-        styles={{button: styles.transparentButton}}
-        onPress={this.press.bind(this)}
-    >
-        <View style={styles.inline}>
-            <Icon name="facebook-official" size={30} color="#3B5699" />
-            <Text style={[styles.buttonBlueText, styles.buttonBigText]}>  Connect </Text> 
-            <Text style={styles.buttonBlueText}>with Facebook</Text>
-        </View>
-    </Button>
-</Container> */}
-<View style={styles.footer}>
-    <Container>
-        <Button 
-            label="Sign In"
-            styles={{button: styles.primaryButton, label: styles.buttonWhiteText}} 
-            onPress={() => this.props.navigation.dispatch({ type: 'Login' })} />
-    </Container>
-    <Container>
-        <Button 
-            label="CANCEL"
-            styles={{label: styles.buttonBlackText}} 
-            onPress={() => this.props.navigation.dispatch({ type: 'Home' })}/>
-    </Container>
-</View>
-    </ScrollView>
-  )
+    return(
+      <ScrollView style={styles.scroll}>
+   <Container>
+      <Button 
+          styles={{button: styles.transparentButton}}
+          onPress={this._handlePressAsync}
+      >
+          <View style={styles.inline}>
+              <Icon name="github" size={30} color="#3B5699" />
+              <Text style={[styles.buttonBlueText, styles.buttonBigText]}>  Connect </Text> 
+              <Text style={styles.buttonBlueText}>with Github</Text>
+          </View>
+      </Button>
+  </Container> 
+  <View style={styles.footer}>
+      <Container>
+          <Button 
+              label="Sign In"
+              styles={{button: styles.primaryButton, label: styles.buttonWhiteText}} 
+              onPress={() => this.props.navigation.dispatch({ type: 'Login' })} />
+      </Container>
+      <Container>
+          <Button 
+              label="CANCEL"
+              styles={{label: styles.buttonBlackText}} 
+              onPress={() => this.props.navigation.dispatch({ type: 'Home' })}/>
+      </Container>
+      {this._maybeRenderRedirectData()}
+  </View>
+      </ScrollView>
+    )
+    }
+
+  _handleRedirect = event => {
+    WebBrowser.dismissBrowser();
+    let data = Linking.parse(event.url);
+    console.log('data',data)
+    this.setState({ redirectData: data });
+  };
+
+  _handlePressAsync = async () => { 
+  let githubURL = 'https://github.com/login/oauth/authorize';
+  let options = {
+    client_id: 'c85c8afdfbb3457405cd',
+    scope: 'read:user repo',
+    state: 'autumn',
+    allow_signup: 'true',
+  };
+  let QueryString = Object.keys(options).map((key) => {
+    return `${key}=` + encodeURIComponent(options[key]);
+  }).join('&');
+  let AUTH_URL = `${githubURL}?${QueryString}`;
+    this._addLinkingListener();
+    let result = await WebBrowser.openBrowserAsync(
+      `${AUTH_URL}?linkingUri=${Linking.makeUrl('/')}`
+    );
+    this._removeLinkingListener();
+    this.setState({ result });
+}
+_addLinkingListener = () => {
+  Linking.addEventListener('url', this._handleRedirect);
+};
+
+_removeLinkingListener = () => {
+  Linking.removeEventListener('url', this._handleRedirect);
+};
+
+_maybeRenderRedirectData = () => {
+  if (!this.state.redirectData) {
+    return;
   }
+  //{this.props.navigation.dispatch({ type: 'Login' })} 
+  return <Text>{JSON.stringify(this.state.redirectData)}</Text>;
+};
+  
 };
 
 LoginScreen.propTypes = {
@@ -160,37 +180,3 @@ footer: {
     color: 'white'
  }
 });
-/**
- * <View style={styles.container}>
-  
-    <TextInput
-        style = {styles.input}
-        onChangeText={(username) => this.setState({username})}
-        underlineColorAndroid = 'transparent'
-        placeholder = 'Username'
-        placeholderTextColor = '#9a73ef'
-        autoCapitalize = 'none'
-      />
-      <TextInput
-       style = {styles.input}
-        onChangeText={(password) => this.setState({password})}
-        underlineColorAndroid = "transparent"
-        placeholder = "Password"
-        placeholderTextColor = "#9a73ef"
-        autoCapitalize = "none"
-      />
-     
-    {/* <Button
-      onPress={() => this.props.navigation.dispatch({ type: 'Login' })}
-      title="Login"
-    /> 
-    <TouchableOpacity
-               style = {styles.submitButton}
-               onPress = {
-                () => this.props.navigation.dispatch({ type: 'Login' })
-               }>
-               <Text style = {styles.submitButtonText}> Login </Text>
-            </TouchableOpacity>
-  </View>
- * 
- */
