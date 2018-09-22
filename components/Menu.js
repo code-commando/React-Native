@@ -50,6 +50,10 @@ const styles = StyleSheet.create({
 });
 
 const Menu = ({ isLoggedIn, dispatch,onItemSelected }) => {
+  dispathBoth=(item)=>{
+    onItemSelected(item)
+    dispatch(NavigationActions.navigate({ routeName: item }))
+  }
   if (!isLoggedIn) {
     return (
       <ScrollView scrollsToTop={false} style={styles.menu}>
@@ -75,54 +79,46 @@ const Menu = ({ isLoggedIn, dispatch,onItemSelected }) => {
         <Text style={styles.name}>Your name</Text>
       </View>
       <Text
-        onPress={() =>{
-          dispatch(NavigationActions.navigate({ routeName: 'Home' }))}
-        }
+        onPress={()=>this.dispathBoth('Home')}
         style={styles.item}
       >
         Home
       </Text>
       <Text
-       onPress={() =>
-        dispatch(NavigationActions.navigate({ routeName: 'Courses' }))}
+       onPress={()=>this.dispathBoth('Courses')}
         style={styles.item}
       >
         Courses
       </Text>
       <Text
-        onPress={() =>
-        dispatch(NavigationActions.navigate({ routeName: 'Roster' }))}
+        onPress={()=>this.dispathBoth('Roster')}
         
         style={styles.item}
       >
         Roster
       </Text>
       <Text
-        onPress={() =>
-        dispatch(NavigationActions.navigate({ routeName: 'Pairs' }))}
+        onPress={()=>this.dispathBoth('Pairs')}
         
         style={styles.item}
       >
         Pairs
       </Text>
       <Text
-        onPress={() =>
-          dispatch(NavigationActions.navigate({ routeName: 'Random' }))}
+        onPress={()=>this.dispathBoth('Random')}
         style={styles.item}
       >
         Random
       </Text>
       <Text
-        onPress={() =>
-          dispatch(NavigationActions.navigate({ routeName: 'Quiz' }))}
+        onPress={()=>this.dispathBoth('Quiz')}
         style={styles.item}
       >
         Quiz
       </Text>
 
       <Text
-        onPress={() =>
-          dispatch(NavigationActions.navigate({ routeName: 'CodeRunner' }))}
+        onPress={()=>this.dispathBoth('CodeRunner')}
         style={styles.item}
       >
         CodeRunner
