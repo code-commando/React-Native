@@ -11,6 +11,7 @@ import Container from './styles/Container';
 import Button from './styles/Button';
 import Label from './styles/Label';
 import DropdownMenu from 'react-native-dropdown-menu';
+//import ScrollPicker from 'react-native-wheel-scroll-picker';
 
 export default class CoursesScreen extends Component {
   constructor(props) {
@@ -18,12 +19,14 @@ export default class CoursesScreen extends Component {
     state = {
       classCode: '',
       courseCode: '401n5',
-      day: 1
+      courseDay: 'day: 0'
     }
   }
-
+press = () => {
+  //add classCode to github path
+}
 render() {
-  //let courseDay = [[1,2,3,4,5],[6,7,8,9,10]];
+  //let setCourseDay = /[1-50]/;
 
   return(
     <ScrollView style={styles.scroll}>
@@ -42,7 +45,16 @@ render() {
         styles={{button: styles.alignRight, label: styles.label}} 
         onPress={this.press.bind(this)} />
     </Container>
-
+    <View  style={styles.container}>
+      <Picker
+          style={[styles.picker]} 
+          itemStyle={styles.pickerItem} 
+          selectedValue={this.props.courseDay} //should be: {this.state.courseDay} but it breaks
+          onValueChange={(itemValue) => this.setState({courseDay: itemValue})}>
+          <Picker.Item label="day: 1" value="day: 1" />
+          <Picker.Item label="day: 2" value="day: 2" />
+      </Picker>
+      </View>
     </ScrollView>
   );
 }
@@ -54,6 +66,7 @@ CoursesScreen.navigationOptions = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
@@ -64,6 +77,16 @@ const styles = StyleSheet.create({
   },
   alignRight: {
     alignSelf: 'flex-end'
+  },
+  picker: {
+    width: 200,
+    backgroundColor: '#FFF0E0',
+    borderColor: 'black',
+    borderWidth: 1,
+  },
+  pickerItem: {
+    height: 88,
+    color: 'red'
   },
   scroll: {
     backgroundColor: '#E1D7D8',
@@ -83,21 +106,6 @@ const styles = StyleSheet.create({
 });
 
 
-
-// const CoursesScreen = () => (
-//   <View style={styles.container}>
-//     <Text style={styles.welcome}>
-//       Courses Screen
-//     </Text>
-//   </View>
-// );
-// <Picker
-// selectedValue={this.state.day}
-// style={{ height: 50, width: 100 }}
-// onValueChange={(itemValue, i) => this.setState({day: courseDay[itemValue][i]})}>
-// <Picker.Item label="Day" value={courseDay[i] }/>
-
-// </Picker> 
       /* <DropdownMenu 
         style={{flex: 1}}
         bgColor={'white'}

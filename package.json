@@ -19,8 +19,10 @@
     "preset": "jest-expo"
   },
   "dependencies": {
-
     "expo": "^27.1.1",
+    "i": "^0.3.6",
+    "prop": "^0.1.1",
+    "prop-types": "^15.6.2",
     "react": "16.3.1",
     "react-monaco-editor": "^0.18.0",
     "react-native": "~0.55.2",
@@ -30,9 +32,11 @@
     "react-native-material-textfield": "^0.12.0",
     "react-native-side-menu": "^1.1.3",
     "react-native-vector-icons": "^5.0.0",
+    "react-native-wheel-scroll-picker": "^0.1.9",
     "react-navigation": "^2.14.2",
     "react-navigation-redux-helpers": "^2.0.5",
     "react-redux": "^5.0.7",
-    "redux": "^4.0.0"
+    "redux": "^4.0.0",
+    "types": "^0.1.1"
   }
 }
