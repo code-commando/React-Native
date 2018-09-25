@@ -1,5 +1,5 @@
 import React,{Fragment} from 'react';
-import { View, StyleSheet,FlatList,SectionList,Text, Platform } from 'react-native';
+import { View, StyleSheet,FlatList,SectionList,Text,ActivityIndicator, Platform } from 'react-native';
 
 const API = 'http://api.commando.ccs.net/api/v1/quiz/10';
 export default class QuizScreen extends React.Component {
@@ -11,29 +11,28 @@ export default class QuizScreen extends React.Component {
       }
     }
     _keyExtractor = (index) => index+'';
-    componentDidMount(){
+    async componentDidMount(){
     
-        fetch(API)
+      fetch(API)
         .then((res) => res.json())
         .then((quiz) => {
           let questions = quiz.results.map(question=>question.question);
           let answers = quiz.results.map(question=>question.answers ? question.answers : '_______________');
           let oQList = questions.map((q,i) => q + '\n\n' + answers[i]);
-          console.log(oQList, oQList.length);
-          console.log('answers',answers);
-
           this.setState({oQList});
               })
     }
     
         render() {
+          
             return (
+              this.state.oQList.length>0?
               <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                <FlatList 
                data={[...this.state.oQList]} 
                keyExtractor={this._keyExtractor}
                renderItem={({item}) => <Text style={styles.row}>{item}</Text>}/>
-              </View> 
+              </View> : <ActivityIndicator color="#FA1111" size="large"/> 
             );
           }
   }
