@@ -1,6 +1,6 @@
 import React,{Fragment} from 'react';
 import { Dimensions,
-  Platform,View, Text, Button, FlatList, StyleSheet } from 'react-native';
+  Platform,View, Text, Button, FlatList, StyleSheet,ActivityIndicator } from 'react-native';
 
 const API = 'http://api.commando.ccs.net/api/v1/roster/pairs';
 // const window = Dimensions.get('window');
@@ -12,7 +12,7 @@ export default class PairsScreen extends React.Component {
   }
 }
 _keyExtractor = (index) => index+'';
-componentDidMount(){
+async componentDidMount(){
 
     fetch(API)
     .then((res) => res.json())
@@ -21,18 +21,15 @@ componentDidMount(){
       this.setState({studentPairs});
           })
 }
-
     render() {
         return (
-           
+          this.state.studentPairs.length>0?
           <View style={{ flex: 1, alignItems: 'center',justifyContent: 'center' }}>
            <FlatList 
            data={[...this.state.studentPairs]} 
            keyExtractor={this._keyExtractor}
            renderItem={({item}) => <Text style={styles.row}>{item[0] + '  '+item[1]}</Text>}/>
-          </View>
-         
-          
+          </View>:<ActivityIndicator color="#FA1111" size="large"/>
         );
       }
   }

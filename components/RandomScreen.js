@@ -1,30 +1,33 @@
 import React from 'react';
-import { View, Text,StyleSheet } from 'react-native';
+import { View, Text,StyleSheet,ActivityIndicator } from 'react-native';
 const API = 'http://api.commando.ccs.net/api/v1/roster/random';
-
+import Wallpaper from './styles/Wallpaper.js'
+import Logo from './styles/Logo.js'
 export default class RandomScreen extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      student: ''
+      student: null
   }
 }
-componentDidMount(){
+async componentDidMount(){
 
-    fetch(API)
+    this.githubCall = fetch(API)
     .then((res) => res.json())
     .then((random) => {
       let student = (random.results);
       this.setState({student});
           })
 }
-
     render() {
         return (
-           
+          this.state.student?
+           <Wallpaper>
+             <Logo/>
           <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
            <Text style={styles.name}>{this.state.student}</Text>
           </View>
+          </Wallpaper>:<ActivityIndicator color="#FA1111" size="large"/>
         );
       }
   }
@@ -34,12 +37,13 @@ componentDidMount(){
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      justifyContent: 'center',
+      top: -95,
       alignItems: 'center',
-      backgroundColor: '#F5FCFF',
+      justifyContent: 'flex-start',
     },
     name: {
-      fontSize: 24,
-      textAlign: 'center',
-    }
+      color: 'white',
+      backgroundColor: 'transparent',
+      fontSize:30
+    },
   });

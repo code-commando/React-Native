@@ -1,26 +1,30 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-
+import Wallpaper from './styles/Wallpaper.js'
+import Logo from './styles/Logo.js'
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    top: -95,
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    justifyContent: 'flex-start',
   },
   welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+    color: 'white',
+    backgroundColor: 'transparent',
+    fontSize:30
   },
 });
 
 const CoursesScreen = () => (
+  <Wallpaper>
+      <Logo/>
   <View style={styles.container}>
     <Text style={styles.welcome}>
       Courses Screen
     </Text>
   </View>
+  </Wallpaper>
 );
 
 CoursesScreen.navigationOptions = {

@@ -3,39 +3,38 @@ import { Animated,
   Easing,
   Image,
   Dimensions,
-  Platform,View, Text, Button, FlatList, StyleSheet } from 'react-native';
+  Platform,View, Text, Button, FlatList, StyleSheet,ActivityIndicator } from 'react-native';
 const API = 'http://api.commando.ccs.net/api/v1/roster';
 const window = Dimensions.get('window');
+
 export default class RosterScreen extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      student: '',
       allStudents: [],
   }
 }
 
 _keyExtractor = (index) => index+'';
-componentDidMount(){
+async componentDidMount(){
 
-    fetch(API)
+    this.githubCall = fetch(API)
     .then((res) => res.json())
     .then((roster) => {
       let allStudents = (roster.results);
       this.setState({allStudents});
           })
 }
-
     render() {
         return (
-           
+         this.state.allStudents.length>0?
           <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
            <FlatList 
            data={[...this.state.allStudents]} 
            keyExtractor={this._keyExtractor}
            renderItem={({item}) => <Text style={styles.row}>{item}</Text>}/>
-          </View>
-         
+          </View>:<ActivityIndicator color="#FA1111"  size="large"/>
+          
           
         );
       }
