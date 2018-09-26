@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, {Component} from 'react';
 import { 
   StyleSheet, 
@@ -7,6 +8,8 @@ import {
   Picker, 
   ScrollView, 
 } from 'react-native';
+import Wallpaper from './styles/Wallpaper.js'
+import Logo from './styles/Logo.js'
 import Container from './styles/Container';
 import Button from './styles/Button';
 import Label from './styles/Label';
@@ -57,6 +60,8 @@ render() {
   const {optionGroups, valueGroups} = this.state;
 
   return(
+      <Wallpaper>
+      <Logo/>
     <ScrollView style={styles.scroll}>
       <Container>
         <Text style={styles.welcome}>
@@ -90,6 +95,7 @@ render() {
       </SmartPicker>
       </View>
     </ScrollView>
+    </Wallpaper>
   );
 }
 }
@@ -100,10 +106,11 @@ CoursesScreen.navigationOptions = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    top: -95,
     flexDirection: 'row-reverse',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    justifyContent: 'flex-start',
   },
   label: {
     color: '#0d8898',
@@ -143,11 +150,22 @@ const styles = StyleSheet.create({
     color: '#595856'
 },
   welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+    color: 'white',
+    backgroundColor: 'transparent',
+    fontSize:30
   },
 });
+
+// const CoursesScreen = () => (
+  // <Wallpaper>
+  //     <Logo/>
+//   <View style={styles.container}>
+//     <Text style={styles.welcome}>
+//       Courses Screen
+//     </Text>
+//   </View>
+//   </Wallpaper>
+// );
 
 
       /* <DropdownMenu 
