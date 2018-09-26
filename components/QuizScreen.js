@@ -28,13 +28,12 @@ export default class QuizScreen extends React.Component {
             return (
           //style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
           this.state.oQList.length>0?<Wallpaper>
-                <Logo/>
             <View >
               <FlatList 
               data={[...this.state.oQList]} 
               keyExtractor={this._keyExtractor}
               renderItem={({item}) => <Text style={styles.row}>{item}</Text>}/>
-            </View> </Wallpaper> : <Wallpaper><ActivityIndicator style= {styles.activityIndicator} color="#FA1111" size="large"/> </Wallpaper>
+            </View></Wallpaper>:<Wallpaper><ActivityIndicator style= {styles.activityIndicator} color="#FA1111" size="large"/></Wallpaper>
           );
           }
   }

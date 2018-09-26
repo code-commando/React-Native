@@ -31,7 +31,7 @@ async componentDidMount(){
            data={[...this.state.studentPairs]} 
            keyExtractor={this._keyExtractor}
            renderItem={({item}) => <Text style={styles.row}>{item[0] + '  '+item[1]}</Text>}/>
-          </View> </Wallpaper>:<Wallpaper><ActivityIndicator style= {styles.activityIndicator} color="#FA1111" size="large"/></Wallpaper>
+          </View></Wallpaper>:<Wallpaper><ActivityIndicator style= {styles.activityIndicator} color="#FA1111" size="large"/></Wallpaper>
           
         );
       }

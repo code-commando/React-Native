@@ -35,9 +35,9 @@ class LoginScreen extends React.Component {
     this.props.navigation.dispatch({ type: 'Login' })
     this.props.navigation.dispatch({ type: 'justLoggedIn' })
   }
-  componentDidMount(){
-    StatusBar.setNetworkActivityIndicatorVisible(false)
-  }
+  // componentDidMount(){
+  //   StatusBar.setNetworkActivityIndicatorVisible(false)
+  // }
   componentDidUpdate() {
     if (this.state.redirectData !== null) {
       return this._dispatchTwoActions();
