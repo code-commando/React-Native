@@ -1,7 +1,8 @@
 import React,{Fragment} from 'react';
 import { Dimensions,
   Platform,View, Text, Button, FlatList, StyleSheet,ActivityIndicator } from 'react-native';
-
+import Wallpaper from './styles/Wallpaper.js'
+  
 const API = 'http://api.commando.ccs.net/api/v1/roster/pairs';
 // const window = Dimensions.get('window');
 export default class PairsScreen extends React.Component {
@@ -24,12 +25,14 @@ async componentDidMount(){
     render() {
         return (
           this.state.studentPairs.length>0?
-          <View style={{ flex: 1, alignItems: 'center',justifyContent: 'center' }}>
+          <Wallpaper>
+          <View >
            <FlatList 
            data={[...this.state.studentPairs]} 
            keyExtractor={this._keyExtractor}
            renderItem={({item}) => <Text style={styles.row}>{item[0] + '  '+item[1]}</Text>}/>
-          </View>:<ActivityIndicator color="#FA1111" size="large"/>
+          </View> </Wallpaper>:<Wallpaper><ActivityIndicator style= {styles.activityIndicator} color="#FA1111" size="large"/></Wallpaper>
+          
         );
       }
   }
@@ -52,19 +55,24 @@ async componentDidMount(){
       fontSize: 18,
       textAlign: 'center',
     },
-
+    activityIndicator: {
+      flex: 1,
+      top: 200,
+      alignItems: 'center',
+      justifyContent: 'flex-start',
+   },
   row: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#fff',
-    padding: 16,
+    backgroundColor: '#660066',
+    padding: 10,
     height: 95,
     flex: 1,
-    marginTop: 7,
-    marginBottom: 12,
+    marginTop: 2,
+    marginBottom: 5,
     borderRadius: 4,
     fontSize: 24,
-    color: '#222222',
+    color: '#FFFFFF',
 
 
     ...Platform.select({

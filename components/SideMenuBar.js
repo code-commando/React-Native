@@ -20,25 +20,45 @@ class Menu extends React.Component{
     super(props)
     this.state={
       isLoading:true,
-      uri:'https://pickaface.net/gallery/avatar/Opi51c74d0125fd4.png'
+      uri:'https://pickaface.net/gallery/avatar/Opi51c74d0125fd4.png',
+      name:''
     }
+    console.log('justloggedin',this.props.justLoggedIn)
   }
-    async componentDidMount(){
-      alert('I am here')
-     if(this.props.isLoggedIn){
-    this.retrieveToken().then((githubToken)=>{
-      fetch(`https://api.github.com/user?access_token=${githubToken}`)
-      .then(response => response.json())
-      .then(user=>{
-        console.log('user',user.avatar_url)
-        let uri = user.avatar_url;
-        this.setState({uri})
-        console.log('uri',this.state.uri)
-        this.setState({isLoading:false})
-      });
-    })
+  componentDidUpdate() {
+    console.log('justloggedinComponent',this.props.justLoggedIn)
+    if(this.props.justLoggedIn && this.state.isLoading)
+    {
+        this.retrieveToken().then((githubToken)=>{
+          fetch(`https://api.github.com/user?access_token=${githubToken}`)
+          .then(response => response.json())
+          .then(user=>{
+            console.log('user',user.avatar_url)
+            let uri = user.avatar_url;
+            let name = user.name;
+            this.setState({uri,name})
+            console.log('uri',this.state.uri)
+            this.setState({isLoading:false})
+          });
+        })
+      }
   }
-  }
+  //   async componentDidMount(){
+  //     alert('I am here')
+  //    if(this.props.isLoggedIn){
+  //   this.retrieveToken().then((githubToken)=>{
+  //     fetch(`https://api.github.com/user?access_token=${githubToken}`)
+  //     .then(response => response.json())
+  //     .then(user=>{
+  //       console.log('user',user.avatar_url)
+  //       let uri = user.avatar_url;
+  //       this.setState({uri})
+  //       console.log('uri',this.state.uri)
+  //       this.setState({isLoading:false})
+  //     });
+  //   })
+  // }
+  // }
   retrieveToken= async()=>{
       //const authToken = await AsyncStorage.getItem('authToken');
       const githubToken = await AsyncStorage.getItem('gitHubToken');
@@ -51,7 +71,7 @@ class Menu extends React.Component{
   }
   
   render(){
-  if (!this.props.isLoggedIn) {
+  if (!this.props.justLoggedIn) {
     return (
       <ScrollView scrollsToTop={false} style={styles.menu}>
       <Text
@@ -61,7 +81,7 @@ class Menu extends React.Component{
       </Text>
       <Text
         onPress={()=>this.dispathBoth('Login')}
-        style={styles.item}
+        style={styles.login}
       >Login
       </Text>
       </ScrollView>
@@ -78,11 +98,11 @@ class Menu extends React.Component{
           style={styles.avatar}
           source={{uri:this.state.uri}}
         />
-        <Text style={styles.name}>Your name</Text>
+        <Text style={styles.name}>{this.state.name}</Text>
       </View>
       <Text
         onPress={()=>this.dispathBoth('Home')}
-        style={styles.item}
+        style={styles.home}
       >
         Home
       </Text>
@@ -141,12 +161,14 @@ class Menu extends React.Component{
 
 Menu.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,
+  justLoggedIn:PropTypes.bool.isRequired,
   dispatch: PropTypes.func.isRequired,
   onItemSelected: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
   isLoggedIn: state.auth.isLoggedIn,
+  justLoggedIn: state.auth.justLoggedIn
 });
 
 export default connect(mapStateToProps)(Menu);
@@ -155,7 +177,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: window.width,
     height: window.height,
-    backgroundColor: 'gray',
+    backgroundColor: '#9671bc',
     padding: 20,
   },
   avatarContainer: {
@@ -174,13 +196,34 @@ const styles = StyleSheet.create({
     top: 20,
   },
   item: {
-    fontSize: 30,
-    fontWeight: '400',
-    paddingTop: 5,
-  },
-  home: {
+    flex: 1,
     fontSize: 30,
     fontWeight: '400',
     paddingTop: 50,
+    textDecorationLine: 'underline' ,
+    color: '#FFFFFF',
+    marginHorizontal: '5%',
+  },
+  home: {
+    flex: 1,
+    color: '#FFFFFF',
+    fontSize: 30,
+    marginHorizontal: '5%',
+    fontWeight: '400',
+    paddingTop: 35,
+    flexDirection: 'row',
+    textDecorationLine: 'underline' ,
+    
+  },
+  login: {
+    flex: 1,
+    color: '#FFFFFF',
+    fontSize: 30,
+    marginHorizontal: '5%',
+    textDecorationLine: 'underline' ,
+    fontWeight: '400',
+    paddingTop: 50,
+    
+    
   },
 });

@@ -47,15 +47,14 @@ class App extends React.Component {
     return (
       <Provider store={store}>
       <SideMenu
-      //  justLoggedIn={this.props.justLoggedIn}
         menu={menu}
         menuPosition='right'
         isOpen={this.state.isOpen}
-        openMenuOffset={250}
+        openMenuOffset={210}
         onChange={isOpen => this.updateMenuState(isOpen)}
       >
         <View style={styles.container}>
-        <StatusBar barStyle='light-content' />
+        <StatusBar backgroundColor="blue" barStyle='dark-content'  />
           <AppNavigator />
         </View>
         <TouchableOpacity
@@ -76,7 +75,6 @@ class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff'
   },
   button: {
     position: 'absolute',

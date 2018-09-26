@@ -27,7 +27,7 @@ async componentDidMount(){
           <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
            <Text style={styles.name}>{this.state.student}</Text>
           </View>
-          </Wallpaper>:<ActivityIndicator color="#FA1111" size="large"/>
+          </Wallpaper>:<ActivityIndicator style= {styles.activityIndicator} style= {styles.activityIndicator} color="#FA1111" size="large"/>
         );
       }
   }
@@ -46,4 +46,10 @@ async componentDidMount(){
       backgroundColor: 'transparent',
       fontSize:30
     },
+    activityIndicator: {
+      flex: 1,
+      top: 200,
+      alignItems: 'center',
+      justifyContent: 'flex-start',
+   },
   });
