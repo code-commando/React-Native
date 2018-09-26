@@ -39,14 +39,10 @@ const RootNavigator = createStackNavigator({
     Random: { screen: RandomScreen },
     Courses: { screen: CoursesScreen },
     CodeRunner: { screen: CodeRunnerScreen },
-<<<<<<< HEAD
     Pairs: {screen:PairsScreen},
     Readme: {screen:ReadmeScreen}
   },{transitionConfig: noTransitionConfig});
-=======
-    Pairs: { screen: PairsScreen }
-}, { transitionConfig: noTransitionConfig });
->>>>>>> 5d70076c414b637ee016cc25ac541b35ad032c5c
+
 const AppWithNavigationState = reduxifyNavigator(RootNavigator, 'root');
 
 const mapStateToProps = state => ({
