@@ -40,10 +40,6 @@
     "react-navigation-redux-helpers": "^2.0.5",
     "react-redux": "^5.0.7",
     "redux": "^4.0.0",
-<<<<<<< HEAD
-    "types": "^0.1.1"
-=======
     "redux-thunk": "^2.3.0"
->>>>>>> 5d70076c414b637ee016cc25ac541b35ad032c5c
   }
 }
