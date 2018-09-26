@@ -5,7 +5,9 @@ import {
   View, 
   TextInput, 
   Picker, 
-  ScrollView, 
+  ScrollView,
+  Linking,
+  TouchableOpacity,
 } from 'react-native';
 import Wallpaper from './styles/Wallpaper.js'
 import Logo from './styles/Logo.js'
@@ -20,7 +22,8 @@ export default class CoursesScreen extends Component {
     this.state = {
       selected: '1',
       classCode: '',
-      toggleView: false
+      toggleView: true,
+      api: 'https://github.com/codefellows/seattle-javascript-401n5/blob/master/01-node-ecosystem/README.md'
       // courseCode: '401n5',
       // courseDay: 'day: 0'
     }
@@ -32,79 +35,16 @@ export default class CoursesScreen extends Component {
     });
 }
 
-press = () => {
-  //;
+getReadme = () => {
+//  let api = 'https://github.com/codefellows/seattle-javascript-401n5/blob/master/01-node-ecosystem/README.md';
+ this.setState({toggleView: false});
 }
 render() {
-  //array of numbers from 1-60
-  const numArr = [
-  1,
-  3,
-  4,
-  5,
-  6,
-  7,
-  8,
-  9,
-  10,
-  11,
-  12,
-  13,
-  14,
-  15,
-  16,
-  17,
-  18,
-  19,
-  20,
-  21,
-  22,
-  23,
-  24,
-  25,
-  26,
-  27,
-  28,
-  29,
-  30,
-  31,
-  32,
-  33,
-  34,
-  35,
-  36,
-  37,
-  38,
-  39,
-  40,
-  41,
-  42,
-  43,
-  44,
-  45,
-  46,
-  47,
-  48,
-  49,
-  50,
-  51,
-  52,
-  53,
-  54,
-  55,
-  56,
-  57,
-  58,
-  59,
-  60
-]
   
-  const {optionGroups, valueGroups} = this.state;
-
   return(
       <Wallpaper>
-      {/* <Logo/> */}
-    <ScrollView style={styles.scroll}>
+        <View>
+      {this.state.toggleView ?<ScrollView style={styles.scroll}>
       <Container>
         <Text style={styles.welcome}>
           Courses Screen
@@ -132,9 +72,15 @@ render() {
       <Button 
         label="Enter"
         styles={{button: styles.alignRight, label: styles.label}} 
-        onPress={this.press.bind(this)} />
+        onPress={this.getReadme.bind(this)} />
     </Container>
     </ScrollView>
+    :<TouchableOpacity onPress={() => Linking.openURL('http://google.com')}>
+  <Text style={{color: 'blue'}}>
+    Google
+  </Text>
+</TouchableOpacity>}
+    </View>
     </Wallpaper>
   );
 }
