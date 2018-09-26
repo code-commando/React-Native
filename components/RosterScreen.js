@@ -4,8 +4,10 @@ import { Animated,
   Image,
   Dimensions,
   Platform,View, Text, Button, FlatList, StyleSheet,ActivityIndicator } from 'react-native';
+import Wallpaper from './styles/Wallpaper.js'
+import Logo from './styles/Logo.js'
 const API = 'http://api.commando.ccs.net/api/v1/roster';
-const window = Dimensions.get('window');
+//const window = Dimensions.get('window');
 
 export default class RosterScreen extends React.Component {
   constructor(props){
@@ -28,13 +30,15 @@ async componentDidMount(){
     render() {
         return (
          this.state.allStudents.length>0?
-          <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-           <FlatList 
-           data={[...this.state.allStudents]} 
-           keyExtractor={this._keyExtractor}
-           renderItem={({item}) => <Text style={styles.row}>{item}</Text>}/>
-          </View>:<ActivityIndicator color="#FA1111"  size="large"/>
-          
+
+        <Wallpaper>
+        <View >
+        <FlatList 
+        data={[...this.state.allStudents]} 
+        keyExtractor={this._keyExtractor}
+        renderItem={({item}) => <Text style={styles.row}>{item}</Text>}/>
+       </View></Wallpaper>:<Wallpaper><ActivityIndicator style= {styles.activityIndicator} color="#FA1111"  size="large"/></Wallpaper>
+      
           
         );
       }
@@ -42,7 +46,7 @@ async componentDidMount(){
   RosterScreen.navigationOptions = {
     title: 'Roster',
   };
-  const styles = StyleSheet.create({
+   const styles = StyleSheet.create({
     container: {
       flex: 1,
       justifyContent: 'center',
@@ -58,19 +62,26 @@ async componentDidMount(){
       fontSize: 18,
       textAlign: 'center',
     },
-
+    activityIndicator: {
+      flex: 1,
+      top: 200,
+      alignItems: 'center',
+      justifyContent: 'flex-start',
+   },
   row: {
     flexDirection: 'row',
+    marginHorizontal: '5%',
     alignItems: 'center',
-    backgroundColor: '#fff',
-    padding: 16,
-    height: 80,
+    justifyContent: 'center',
+    backgroundColor: '#660066',
+    padding: 10,
+    height: 95,
     flex: 1,
-    marginTop: 7,
-    marginBottom: 12,
+    marginTop: 2,
+    marginBottom: 5,
     borderRadius: 4,
-    fontSize: 20,
-    color: '#222222',
+    fontSize: 24,
+    color: '#FFFFFF',
 
 
     ...Platform.select({

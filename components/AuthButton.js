@@ -7,7 +7,7 @@ import {
   Text,
   Animated,
   Easing,
-  Image, View
+  Image, View,AsyncStorage
 } from 'react-native';
 import Wallpaper from './styles/Wallpaper.js'
 import Logo from './styles/Logo';
@@ -24,61 +24,32 @@ class AuthButton extends React.Component {
     this.state = {
       isLoading: true
     };
-   
-  
-    // this.buttonAnimated = new Animated.Value(0);
-    // this.growAnimated = new Animated.Value(0);
-    // this._onPress = this._onPress.bind(this);
   }
   componentDidUpdate(){
-    setTimeout(() => {
+    this.timerHandle = setTimeout(() => {
       this.setState({ isLoading: false })
       this.timerHandle = 0;
     }, 3000);
   }
-
-  // _onPress() {
-  //   this.props.isLoggedIn ? this.props.logout : this.props.loginScreen
-  //   // if (this.state.isLoading) return;
-
-  //   // this.setState({isLoading: true});
-  //   // Animated.timing(this.buttonAnimated, {
-  //   //   toValue: 1,
-  //   //   duration: 200,
-  //   //   easing: Easing.linear,
-  //   // }).start();
-
-  //   // setTimeout(() => {
-  //   //   this._onGrow();
-  //   // }, 2000);
-
-  //   // setTimeout(() => {
-  //   //   this.callNextScreen()
-  //   //   this.setState({isLoading: false});
-  //   //   this.buttonAnimated.setValue(0);
-  //   //   this.growAnimated.setValue(0);
-  //   // }, 10);
-  // }
-  // callNextScreen=()=>{
-  //   this.props.isLoggedIn ? this.props.logout : this.props.loginScreen
-  // }
-
-  // _onGrow() {
-  //   Animated.timing(this.growAnimated, {
-  //     toValue: 1,
-  //     duration: 200,
-  //     easing: Easing.linear,
-  //   }).start();
-  // }
+  componentWillUnmount(){
+    this.setState({ isLoading: true }) 
+    if (this.timerHandle) {        
+      clearTimeout(this.timerHandle);
+      this.timerHandle = 0;   
+  }   
+  }
+ _logOut=async()=>{
+  await AsyncStorage.removeItem('authToken');
+  console.log('auth token deleted')
+  await AsyncStorage.removeItem('gitHubToken');
+  console.log('github token deleted')
+  this._dispathLogOut()
+  }
+  _dispathLogOut(){
+  this.props.logout()
+  this.props.justLoggedOut()
+  }
   render() {
-    // const changeWidth = this.buttonAnimated.interpolate({
-    //   inputRange: [0, 1],
-    //   outputRange: [DEVICE_WIDTH - MARGIN, MARGIN],
-    // });
-    // const changeScale = this.growAnimated.interpolate({
-    //   inputRange: [0, 1],
-    //   outputRange: [1, MARGIN],
-    // });
     
   if(this.props.isLoggedIn){
     return (
@@ -96,23 +67,12 @@ class AuthButton extends React.Component {
         <Button styles={{ button: styles.primaryButton, label: styles.buttonWhiteText }}
           // label={this.props.isLoggedIn ? 'SIGN OUT' : 'Go TO LOGIN SCREEN'}
           label= 'SIGN OUT'
-          onPress={this.props.isLoggedIn ? this.props.logout : this.props.loginScreen}
+          onPress={this._logOut}
+          // onPress={this.props.isLoggedIn ? this.props.logout : this.props.loginScreen}
         />
-        {/* <TouchableOpacity
-            style={styles.button}
-            onPress={this._onPress}
-            activeOpacity={1}>
-              <Text style={styles.text}>{this.props.isLoggedIn ? 'SIGN OUT' : 'SIGNIN HERE'}</Text>
-            
-          </TouchableOpacity> */}
-        {/* <Animated.View
-            style={[styles.circle, {transform: [{scale: changeScale}]}]}
-          /> */}
-
       </View>
       </View>
       </Wallpaper>
-
     )
         }
         return (
@@ -140,6 +100,7 @@ AuthButton.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,
   logout: PropTypes.func.isRequired,
   loginScreen: PropTypes.func.isRequired,
+  justLoggedOut:PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -148,6 +109,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   logout: () => dispatch({ type: 'Logout' }),
+  justLoggedOut: () => dispatch({ type: 'justLoggedOut' }),
   loginScreen: () =>
     dispatch(NavigationActions.navigate({ routeName: 'Login' })),
 });

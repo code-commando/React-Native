@@ -5,7 +5,7 @@ import {StyleSheet,
   Text,
   Animated,
   Easing,
-  Image,  View, ScrollView, AsyncStorage, ActivityIndicator } from 'react-native';
+  Image, StatusBar, View, ScrollView, AsyncStorage, ActivityIndicator } from 'react-native';
 import Dimensions from 'Dimensions';
 import { connect } from 'react-redux';
 import Container from './styles/Container';
@@ -15,7 +15,6 @@ import { WebBrowser, Linking } from 'expo';
 import Wallpaper from './styles/Wallpaper.js'
 import Logo from './styles/Logo';
 import spinner from './images/loading.gif';
-import {dispatchLogin} from '../reducer/auth.js'
 
 const DEVICE_WIDTH = Dimensions.get('window').width;
 const DEVICE_HEIGHT = Dimensions.get('window').height;
@@ -32,10 +31,16 @@ class LoginScreen extends React.Component {
     this.growAnimated = new Animated.Value(0);
     this._onPress = this._onPress.bind(this);
   }
-
+  _dispatchTwoActions(){
+    this.props.navigation.dispatch({ type: 'Login' })
+    this.props.navigation.dispatch({ type: 'justLoggedIn' })
+  }
+  componentDidMount(){
+    StatusBar.setNetworkActivityIndicatorVisible(false)
+  }
   componentDidUpdate() {
     if (this.state.redirectData !== null) {
-      return this.props.navigation.dispatch({ type: 'Login' })
+      return this._dispatchTwoActions();
     }
   }
   _onPress() {
@@ -81,6 +86,10 @@ class LoginScreen extends React.Component {
       <Wallpaper>
         <Logo/>
         <View style={styles.container}>
+        <StatusBar
+          barStyle="dark-content"
+          backgroundColor="blue"
+        />
         <Animated.View style={{width: changeWidth}}>
           <TouchableOpacity
             style={styles.button}
@@ -97,6 +106,16 @@ class LoginScreen extends React.Component {
             style={[styles.circle, {transform: [{scale: changeScale}]}]}
           />
         </Animated.View>
+      </View>
+      <View style={styles.footer}>
+      <Container>
+          <Button 
+              label="Sign In"
+              styles={{button: styles.primaryButton, label: styles.buttonWhiteText}} 
+              onPress={() => {
+                this.props.navigation.dispatch({ type: 'Login' })
+                this.props.navigation.dispatch({ type: 'justLoggedIn' }) }}/>
+      </Container>
       </View>
       {/* <ScrollView style={styles.scroll}>
         <Container>

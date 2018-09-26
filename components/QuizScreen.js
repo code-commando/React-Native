@@ -1,6 +1,7 @@
 import React,{Fragment} from 'react';
 import { View, StyleSheet,FlatList,SectionList,Text,ActivityIndicator, Platform } from 'react-native';
-
+import Wallpaper from './styles/Wallpaper.js'
+import Logo from './styles/Logo.js'
 const API = 'http://api.commando.ccs.net/api/v1/quiz/10';
 export default class QuizScreen extends React.Component {
       constructor(props){
@@ -22,18 +23,19 @@ export default class QuizScreen extends React.Component {
           this.setState({oQList});
               })
     }
-    
         render() {
           
             return (
-              this.state.oQList.length>0?
-              <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-               <FlatList 
-               data={[...this.state.oQList]} 
-               keyExtractor={this._keyExtractor}
-               renderItem={({item}) => <Text style={styles.row}>{item}</Text>}/>
-              </View> : <ActivityIndicator color="#FA1111" size="large"/> 
-            );
+          //style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
+          this.state.oQList.length>0?<Wallpaper>
+                <Logo/>
+            <View >
+              <FlatList 
+              data={[...this.state.oQList]} 
+              keyExtractor={this._keyExtractor}
+              renderItem={({item}) => <Text style={styles.row}>{item}</Text>}/>
+            </View> </Wallpaper> : <Wallpaper><ActivityIndicator style= {styles.activityIndicator} color="#FA1111" size="large"/> </Wallpaper>
+          );
           }
   }
   QuizScreen.navigationOptions = {
@@ -55,19 +57,24 @@ export default class QuizScreen extends React.Component {
       fontSize: 18,
       textAlign: 'center',
     },
-
+    activityIndicator: {
+      flex: 1,
+      top: 200,
+      alignItems: 'center',
+      justifyContent: 'flex-start',
+   },
   row: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: '#660066',
     padding: 16,
     height: 180,
     flex: 1,
-    marginTop: 7,
-    marginBottom: 12,
+    marginTop: 2,
+    marginBottom: 5,
     borderRadius: 4,
     fontSize: 20,
-    color: '#222222',
+    color: '#FFFFFF',
 
 
     ...Platform.select({
