@@ -12,21 +12,49 @@ import Button from './styles/Button';
 import Label from './styles/Label';
 import DropdownMenu from 'react-native-dropdown-menu';
 //import ScrollPicker from 'react-native-wheel-scroll-picker';
-
+//import Picker from 'react-mobile-picker-scroll';
+import SmartPicker from 'react-native-smart-picker'
+const url = 'https://github.com/codefellows/seattle-javascript-401n5/blob/master/01-node-ecosystem/README.md';
 export default class CoursesScreen extends Component {
   constructor(props) {
     super(props);
-    state = {
-      classCode: '',
-      courseCode: '401n5',
-      courseDay: 'day: 0'
+    this.state = {
+      selected: '1'
+      // valueGroups: {
+      //   courseCode: '401n5',
+      //   courseDay: 1
+      // },
+      // optionGroups: {
+      //   courseCode: ['401n5', '301d15'],
+      //   courseDay: [1,2,3,4,5]
+      // }
+      // classCode: '',
+      // courseCode: '401n5',
+      // courseDay: 'day: 0'
     }
   }
+
+  handleChange = (value) => {
+    this.setState({
+        selected: value
+    });
+}
+
+  // handleChange = (name, value) => {
+  //   this.setState(({valueGroups}) => ({
+  //     valueGroups: {
+  //       ...valueGroups,
+  //       [name]: value
+  //     }
+  //   }));
+  // };
 press = () => {
   //add classCode to github path
 }
 render() {
-  //let setCourseDay = /[1-50]/;
+
+  
+  const {optionGroups, valueGroups} = this.state;
 
   return(
     <ScrollView style={styles.scroll}>
@@ -45,15 +73,21 @@ render() {
         styles={{button: styles.alignRight, label: styles.label}} 
         onPress={this.press.bind(this)} />
     </Container>
-    <View  style={styles.container}>
-      <Picker
-          style={[styles.picker]} 
+    <View>
+      {/* <Picker
+      optionGroups={optionGroups}
+      valueGroups={valueGroups}
+      onChange={this.handleChange}></Picker> */}
+      <SmartPicker
+          style={[styles.picker, styles.textLabel]} 
           itemStyle={styles.pickerItem} 
-          selectedValue={this.props.courseDay} //should be: {this.state.courseDay} but it breaks
-          onValueChange={(itemValue) => this.setState({courseDay: itemValue})}>
-          <Picker.Item label="day: 1" value="day: 1" />
-          <Picker.Item label="day: 2" value="day: 2" />
-      </Picker>
+          selectedValue={this.state.selected}
+          label='Select the class day' 
+          onValueChange={this.handleChange}>
+          <Picker.Item label="day: 1" value={url} />
+          <Picker.Item label="day: 2" value='2' />
+          <Picker.Item label="day: 3" value='3' />
+      </SmartPicker>
       </View>
     </ScrollView>
   );
@@ -66,7 +100,7 @@ CoursesScreen.navigationOptions = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'column',
+    flexDirection: 'row-reverse',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
@@ -79,8 +113,11 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end'
   },
   picker: {
-    width: 200,
-    backgroundColor: '#FFF0E0',
+    flex: 1,
+    flexDirection: 'row-reverse',
+    alignItems: 'flex-end',
+    width: 100,
+    backgroundColor: '#F5FCFF',
     borderColor: 'black',
     borderWidth: 1,
   },
@@ -98,6 +135,13 @@ const styles = StyleSheet.create({
     fontSize: 30,
     backgroundColor: '#FFF',
   },
+  textLabel: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    //fontFamily: 'veranda',
+    marginBottom: 10,
+    color: '#595856'
+},
   welcome: {
     fontSize: 20,
     textAlign: 'center',
