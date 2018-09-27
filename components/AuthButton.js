@@ -141,7 +141,9 @@ const styles = StyleSheet.create({
   status:{
     color: 'white',
     backgroundColor: 'transparent',
-    fontSize:20
+    fontSize:20,
+    top: 150,
+    margin: 15
   },
   primaryButton: {
     alignItems: 'center',

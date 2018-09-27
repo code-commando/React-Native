@@ -21,9 +21,9 @@ export default class CoursesScreen extends Component {
     super(props);
     this.state = {
       selected: '1',
-      classCode: '',
+      classCode: '401n5',
       toggleView: true,
-      api: 'https://github.com/codefellows/seattle-javascript-401n5/blob/master/01-node-ecosystem/README.md'
+      api: ''
       // courseCode: '401n5',
       // courseDay: 'day: 0'
     }
@@ -36,7 +36,13 @@ export default class CoursesScreen extends Component {
 }
 
 getReadme = () => {
-//  let api = 'https://github.com/codefellows/seattle-javascript-401n5/blob/master/01-node-ecosystem/README.md';
+ let API = `http://api.commando.ccs.net/api/v1/readme/${this.state.selected}`;
+ this.githubCall = fetch(API)
+ .then((res) => res.json())
+ .then((readme) => {
+   let readme = (readme.results);
+   this.setState({readme});
+       })
  this.setState({toggleView: false});
 }
 render() {
@@ -44,7 +50,7 @@ render() {
   return(
       <Wallpaper>
         <View>
-      {this.state.toggleView ?<ScrollView style={styles.scroll}>
+      {this.state.toggleView?<ScrollView style={styles.scroll}>
       <Container>
         <Text style={styles.welcome}>
           Courses Screen
@@ -75,9 +81,9 @@ render() {
         onPress={this.getReadme.bind(this)} />
     </Container>
     </ScrollView>
-    :<TouchableOpacity onPress={() => Linking.openURL('http://google.com')}>
-  <Text style={{color: 'blue'}}>
-    Google
+    :<TouchableOpacity onPress={() => Linking.openURL(`http://api.commando.ccs.net/api/v1/readme/${this.state.selected}`)}>
+  <Text style={styles.link}>
+    Day {this.state.selected} README.md
   </Text>
 </TouchableOpacity>}
     </View>
@@ -97,6 +103,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     justifyContent: 'flex-start',
+  },
+  link: {
+    color: 'white',
+    backgroundColor: 'transparent',
+    fontSize:30,
   },
   label: {
     color: '#0d8898',
