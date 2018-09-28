@@ -14,8 +14,8 @@ import QuizScreen from '../components/QuizScreen.js'
 import RandomScreen from '../components/RandomScreen.js'
 import CoursesScreen from '../components/CoursesScreen.js'
 import CodeRunnerScreen from '../components/CodeRunnerScreen.js'
-import PairsScreen from '../components/PairsScreen.js'
-
+import PairsScreen from '../components/PairsScreen.js';
+import CourseContentScreen from '../components/CourseContentScreen.js'
 
 const middleware = createReactNavigationReduxMiddleware(
     'root',
@@ -39,7 +39,8 @@ const RootNavigator = createStackNavigator({
     Random: { screen: RandomScreen },
     Courses: { screen: CoursesScreen },
     CodeRunner: { screen: CodeRunnerScreen },
-    Pairs: { screen: PairsScreen }
+    Pairs: { screen: PairsScreen },
+    CourseSelected: {screen:CourseContentScreen}
 }, { transitionConfig: noTransitionConfig });
 const AppWithNavigationState = reduxifyNavigator(RootNavigator, 'root');
 

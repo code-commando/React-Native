@@ -1,18 +1,19 @@
-const initialAuthState = { isLoggedIn: false,justLoggedIn:false };
+const initialAuthState = { isLoggedIn: false,justLoggedIn:false,tokens:null,day:null,classCode:null };
 
 
 export default function reducer(state = initialAuthState, action) {
+  const {payload} = action;
   switch (action.type) {
     case 'Login':
       return { ...state, isLoggedIn: true };
     case 'Logout':
       return { ...state, isLoggedIn: false };
     case 'justLoggedIn':
-    console.log('justloggedin state',action)
-    return { ...state, justLoggedIn: true };
+    return { ...state, justLoggedIn: true, tokens: payload };
     case 'justLoggedOut':
-    console.log('justloggedOut state',action)
-    return { ...state, justLoggedIn: false };
+    return { ...state, justLoggedIn: false,tokens:null,day:null,classCode:null };
+    case 'CourseSelected':
+    return { ...state, day:payload.day, classCode:payload.classCode };
     default:
       return state;
   } 
