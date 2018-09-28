@@ -4,6 +4,10 @@ import Dimensions from 'Dimensions';
 import {StyleSheet, View, Text} from 'react-native';
 
 export default class SignupSection extends Component {
+  constructor(props){
+    super(props)
+  console.log('signup',this.props)
+  }
   render() {
     return (
       <View style={styles.container}>

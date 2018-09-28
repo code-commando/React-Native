@@ -1,11 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, View,ActivityIndicator } from 'react-native';
-// import Wallpaper from './styles/Wallpaper.js'
-// import Logo from './styles/Logo';
 import  { connect } from 'react-redux';
-// import LoginStatusMessage from './LoginStatusMessage.js';
-import AuthButton from './AuthButton.js';
+import AuthHelper from './AuthUtil.js';
 
 class HomeScreen extends React.Component {
   constructor(props){
@@ -17,7 +13,7 @@ class HomeScreen extends React.Component {
     this.timerHandle = setTimeout(() => {
       this.setState({ isLoading: false })
       this.timerHandle = 0;
-    }, 5000);
+    }, 3000);
     
   }
  
@@ -29,23 +25,12 @@ class HomeScreen extends React.Component {
           
   }   
   }
-  // updateLoginState = ()=>{
-  //   this.setState({loggedIn:true})
-  // }
+ 
   render() {
-
     return (
-      // (this.state.isLoading) ? <View style={styles.container}><ActivityIndicator size="large" color="#ff0000" /></View> :
-      // <Wallpaper>
-      // <Logo/>
-        // {/* <LoginStatusMessage /> */}
-        <AuthButton />
-      // </Wallpaper>
-    )
-    
-      
+        <AuthHelper />
+    ) 
   }
-
 };
 
 HomeScreen.navigationOptions = {

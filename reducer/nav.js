@@ -20,15 +20,12 @@ export default function reducer(state = initialNavState, action) {
         NavigationActions.back(),
         state
       );
-      console.log('Login',nextState)
-      console.log('Login-nav',action)
       break;
     case 'Logout':
       nextState = RootNavigator.router.getStateForAction(
         NavigationActions.navigate({ routeName: 'Login' }),
         state
       );
-      console.log('Logout',nextState)
       break;
       case 'Home':
       nextState = RootNavigator.router.getStateForAction(

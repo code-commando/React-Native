@@ -10,7 +10,7 @@ import {
   Image, View,AsyncStorage
 } from 'react-native';
 import Wallpaper from './styles/Wallpaper.js'
-import Logo from './styles/Logo';
+import Logo from './styles/Logo.js';
 import { NavigationActions } from 'react-navigation';
 import Dimensions from 'Dimensions';
 import Button from './styles/Button.js'

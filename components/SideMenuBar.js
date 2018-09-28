@@ -8,13 +8,9 @@ import {
   ScrollView,
   View,
   Image,
-  Text,AsyncStorage,ActivityIndicator,
+  Text,AsyncStorage,
 } from 'react-native';
-
 const window = Dimensions.get('window');
-//const uri = 'https://pickaface.net/gallery/avatar/Opi51c74d0125fd4.png';
-//const uri = `https://avatars0.githubusercontent.com/u/24405156?v=4`
-
 class Menu extends React.Component{
   constructor(props){
     super(props)
@@ -23,10 +19,9 @@ class Menu extends React.Component{
       uri:'https://pickaface.net/gallery/avatar/Opi51c74d0125fd4.png',
       name:''
     }
-    console.log('justloggedin',this.props.justLoggedIn)
   }
   componentDidUpdate() {
-    console.log('justloggedinComponent',this.props.justLoggedIn)
+    
     if(this.props.justLoggedIn && this.state.isLoading)
     {
         this.retrieveToken().then((githubToken)=>{
@@ -43,26 +38,9 @@ class Menu extends React.Component{
         })
       }
   }
-  //   async componentDidMount(){
-  //     alert('I am here')
-  //    if(this.props.isLoggedIn){
-  //   this.retrieveToken().then((githubToken)=>{
-  //     fetch(`https://api.github.com/user?access_token=${githubToken}`)
-  //     .then(response => response.json())
-  //     .then(user=>{
-  //       console.log('user',user.avatar_url)
-  //       let uri = user.avatar_url;
-  //       this.setState({uri})
-  //       console.log('uri',this.state.uri)
-  //       this.setState({isLoading:false})
-  //     });
-  //   })
-  // }
-  // }
+  
   retrieveToken= async()=>{
-      //const authToken = await AsyncStorage.getItem('authToken');
       const githubToken = await AsyncStorage.getItem('gitHubToken');
-      //console.log('githubtoken outside',githubToken)
       return githubToken;
     }
   dispathBoth=(item)=>{
@@ -87,10 +65,6 @@ class Menu extends React.Component{
       </ScrollView>
     )
   }
-  // if(this.state.isLoading){
-  //   return <ActivityIndicator size="large"/>
-  // }
-  // if(!this.state.isLoading && this.props.isLoggedIn){
   return (
     <ScrollView scrollsToTop={false} style={styles.menu}>
       <View style={styles.avatarContainer}>
@@ -138,13 +112,13 @@ class Menu extends React.Component{
       >
         Quiz
       </Text>
-
-      <Text
+      
+      {/* <Text
         onPress={()=>this.dispathBoth('CodeRunner')}
         style={styles.item}
       >
         CodeRunner
-      </Text>
+      </Text> */}
 
       {/* <Text
         onPress={this.navigateToScreen('About')}
@@ -223,7 +197,5 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline' ,
     fontWeight: '400',
     paddingTop: 50,
-    
-    
   },
 });
