@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import  { connect } from 'react-redux';
 import AuthHelper from './AuthUtil.js';
+import {View, Text} from 'react-native'
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 class HomeScreen extends React.Component {
   constructor(props){
@@ -34,7 +36,13 @@ class HomeScreen extends React.Component {
 };
 
 HomeScreen.navigationOptions = {
-  title: 'Home Screen',
+  headerTitle: <View style={{ flexDirection: 'row',
+  alignItems: 'center',
+justifyContent: 'center',}} >
+  <Icon name="home" size={40} color="#3B5699" /><Text style={{color: 'white',
+    fontWeight:'bold',
+    fontSize:20
+    }}>   HOME </Text></View>,
 };
 HomeScreen.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,

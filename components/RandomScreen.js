@@ -6,6 +6,7 @@ import Wallpaper from './styles/Wallpaper.js'
 import HTML from 'react-native-render-html';  
 import AwesomeAlert from 'react-native-awesome-alerts'
 import dog from '../assets/dogconfused.jpg'
+
 const htmlContent = `
     <br/>
     <h2 style="textAlign: center;">Select a Class Code and Day from 'Courses' tab</h2>
@@ -80,7 +81,7 @@ async componentDidMount(){
       }
   }
   RandomScreen.navigationOptions = {
-    title: 'Random',
+    title: 'Random Student',
   };
   RandomScreen.propTypes = {
     tokens: PropTypes.object.isRequired,

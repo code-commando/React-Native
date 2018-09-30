@@ -19,8 +19,6 @@ export default function reducer(state = initialAuthState, action) {
   } 
 }
 export const dispatchJustLoggedIn = async()=>{
-  // const authToken = await AsyncStorage.getItem('authToken');
-  // console.log('Hello from store',authToken)
   return dispatch=>{
     dispatch({type:'justLoggedIn'})
   }

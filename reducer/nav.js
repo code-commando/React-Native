@@ -1,9 +1,6 @@
-// import { combineReducers } from 'redux';
 import { NavigationActions } from 'react-navigation';
-
 import { RootNavigator } from '../navigation/AppNavigation.js';
 
-// Start with two routes: The Main screen, with the Login screen on top.
 const firstAction = RootNavigator.router.getActionForPathAndParams('Home');
 const tempNavState = RootNavigator.router.getStateForAction(firstAction);
 const secondAction = RootNavigator.router.getActionForPathAndParams('Login');
@@ -37,8 +34,6 @@ export default function reducer(state = initialNavState, action) {
       nextState = RootNavigator.router.getStateForAction(action, state);
       break;
   }
-
-  // Simply return the original `state` if `nextState` is null or undefined.
   return nextState || state;
 }
 export function logout(){

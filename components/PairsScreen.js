@@ -1,22 +1,22 @@
 import React, { Fragment } from 'react';
 import {
-  Dimensions,
+  Image,
   Platform, View, Text, Button, FlatList, StyleSheet, ActivityIndicator,ScrollView,ImageBackground
 } from 'react-native';
 import Wallpaper from './styles/Wallpaper.js'
-import Logo from './styles/Logo.js';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types'
 import AwesomeAlert from 'react-native-awesome-alerts'
 import HTML from 'react-native-render-html';  
-import dog from '../assets/dogconfused.jpg'
+import dog from '../assets/dogconfused.jpg';
+
+
 const htmlContent = `
 <br/>
     <h2 style="textAlign: center;">Select a Class Code and Day from 'Courses' tab</h2>
     <em style="textAlign: center;"></em>
 `;
-//const API = `http://api.commando.ccs.net/api/v1/roster/pairs?classCode=${this.props.classCode}`;
-// const window = Dimensions.get('window');?classCode
+
 export class PairsScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -42,6 +42,7 @@ export class PairsScreen extends React.Component {
       .then((res) => res.json())
       .then((pairs) => {
         let studentPairs = (pairs.results);
+        console.log('students list',studentPairs)
         this.setState({isLoading:false})
         this.setState({ studentPairs });
       })
@@ -82,7 +83,13 @@ export class PairsScreen extends React.Component {
   }
 }
 PairsScreen.navigationOptions = {
-  title: 'Student Pairs',
+  headerTitle: <View style={{ flexDirection: 'row',
+  alignItems: 'center',
+justifyContent: 'center',}} >
+  <Text style={{color: 'white',
+    fontWeight:'bold',
+    fontSize:20
+    }}>Pairs </Text></View>,
 };
 
 PairsScreen.propTypes = {
