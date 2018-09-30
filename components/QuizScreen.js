@@ -14,7 +14,7 @@ const htmlContent = `
 `;
 const htmlContentBadDay = `
 <br/><br/><br/><br/><br/><br/><br/><br/>
-<img src="https://memegenerator.net/img/instances/80170404/really-are-you-kidding-me.jpg" />
+<img src="https://media.makeameme.org/created/wait-you-kidding.jpg" />
 <em style="textAlign: center;">No one is hungry for Quiz on Day 1<br/> select a different day</em>
 `;
 
@@ -183,25 +183,3 @@ const styles = StyleSheet.create({
     })
   },
 });
-
-/* <Button
-        title="Go to Login"
-        onPress={() => this.props.navigation.navigate('Login')}
-      /> */
-
-{/* <SectionList 
-   renderSectionHeader={({ section: { title } }) => <Text style={{ fontWeight: 'bold' }}>{title}</Text>} 
-   sections={[ 
-     { title: 'questions', data: this.state.questions, renderItem: ({ item, index, section: { title, data } }) => <Text>{item}</Text> }, 
-     { title: 'answers', data: this.state.answers, renderItem: ({ item, index, section: { title, data } }) => <Text>{item}</Text>}, 
-    ]} 
-   keyExtractor={(item, index) => item + index} 
- /> */}
-{/* <SectionList
-  renderItem={({item, index, section}) => <Text key={index}>{item}</Text>}
-  renderSectionHeader={({section: {question}}) => (
-    <Text style={{fontWeight: 'bold'}}>{question}</Text>
-  )}
-  sections={[...this.state.questions]}
-  keyExtractor={(item, index) => item + index}
-/> */}

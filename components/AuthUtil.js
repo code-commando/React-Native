@@ -3,21 +3,17 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
   StyleSheet,ActivityIndicator,
-  TouchableOpacity,
-  Text,
-  Animated,
-  Easing,
-  Image, View,AsyncStorage
+  Text,View,AsyncStorage,Image
 } from 'react-native';
 import Wallpaper from './styles/Wallpaper.js'
 import Logo from './styles/Logo.js';
 import { NavigationActions } from 'react-navigation';
 import Dimensions from 'Dimensions';
 import Button from './styles/Button.js'
-import spinner from './images/loading.gif';
 const DEVICE_WIDTH = Dimensions.get('window').width;
 const DEVICE_HEIGHT = Dimensions.get('window').height;
 const MARGIN = 80;
+
 class AuthButton extends React.Component {
   constructor(props) {
     super(props)
@@ -55,22 +51,19 @@ class AuthButton extends React.Component {
     return (
       (this.state.isLoading) ? <Wallpaper><ActivityIndicator style= {styles.activityIndicator}size="large" color="#FA1111" /></Wallpaper> : 
       <Wallpaper>
-      <Logo/>
-      <View style={styles.container}>
-
+        <Image style={{width:'70%',height:'60%',overflow:"visible"}}
+          source={require('../assets/skilldevelopment.jpg')}
+        />
       <View style={styles.container}>
       <Text style={styles.status}>
-        {'You are "logged in" right now!! Click on hamburger menu or pull the screen right to left'}
+        {'Welcome to Code Commando!!'}
       </Text>
       </View>
       <View style={styles.container}>
-        <Button styles={{ button: styles.primaryButton, label: styles.buttonWhiteText }}
-          // label={this.props.isLoggedIn ? 'SIGN OUT' : 'Go TO LOGIN SCREEN'}
+        <Button styles={{ button: styles.logoutButton, label: styles.buttonWhiteText }}
           label= 'SIGN OUT'
           onPress={this._logOut}
-          // onPress={this.props.isLoggedIn ? this.props.logout : this.props.loginScreen}
         />
-      </View>
       </View>
       </Wallpaper>
     )
@@ -139,7 +132,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent'
   },
   status:{
-    color: 'white',
+    color: 'black',
     backgroundColor: 'transparent',
     fontSize:20
   },
@@ -150,6 +143,14 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     zIndex: 100,
     backgroundColor: '#F035E0'
+  },
+  logoutButton: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 80,
+    borderRadius: 20,
+    zIndex: 100,
+    backgroundColor: '#3234d1'
   },
   button: {
     alignItems: 'center',

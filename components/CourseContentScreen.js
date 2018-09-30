@@ -1,21 +1,12 @@
-import React,{Fragment} from 'react';
-import { Animated,
-  Easing,
+import React from 'react';
+import {
   ScrollView,
-  Dimensions,TouchableOpacity,
-  Platform,View, Text, Button, FlatList, StyleSheet,ActivityIndicator } from 'react-native';
+  Dimensions,
+  Platform,StyleSheet,ActivityIndicator } from 'react-native';
 import PropTypes from 'prop-types'
 import Wallpaper from './styles/Wallpaper.js'
 import { connect } from 'react-redux';
 import HTML from 'react-native-render-html';  
-const htmlContent = `
-    <h1>This HTML snippet is now rendered with native components !</h1>
-    <h2>Enjoy a webview-free and blazing fast application</h2>
-    <img src="https://i.imgur.com/dHLmxfO.jpg?2" />
-    <em style="textAlign: center;">Look at how happy this native cat is</em>
-`;
-// const API = 'http://192.168.29.186:3001/api/v1/user';
-//const window = Dimensions.get('window');
 
 export class LectureContentScreen extends React.Component {
   constructor(props){

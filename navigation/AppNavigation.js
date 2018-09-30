@@ -1,6 +1,6 @@
 import React from 'react'
-import { Text, Animated, Easing } from 'react-native'
-import { createStackNavigator, createDrawerNavigator } from 'react-navigation'
+import { Animated, Easing } from 'react-native'
+import { createStackNavigator } from 'react-navigation'
 import { connect } from 'react-redux'
 import {
     reduxifyNavigator,
@@ -41,7 +41,15 @@ const RootNavigator = createStackNavigator({
     CodeRunner: { screen: CodeRunnerScreen },
     Pairs: { screen: PairsScreen },
     CourseSelected: {screen:CourseContentScreen}
-}, { transitionConfig: noTransitionConfig });
+}, {initialRouteName: 'Home', navigationOptions: {
+    headerStyle: {
+      backgroundColor: '#5d8be2',
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+    },
+  },transitionConfig: noTransitionConfig });
 const AppWithNavigationState = reduxifyNavigator(RootNavigator, 'root');
 
 const mapStateToProps = state => ({

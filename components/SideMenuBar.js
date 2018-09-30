@@ -112,20 +112,6 @@ class Menu extends React.Component{
       >
         Quiz
       </Text>
-      
-      {/* <Text
-        onPress={()=>this.dispathBoth('CodeRunner')}
-        style={styles.item}
-      >
-        CodeRunner
-      </Text> */}
-
-      {/* <Text
-        onPress={this.navigateToScreen('About')}
-        style={styles.item}
-      >
-        About
-      </Text> */}
     </ScrollView>
   );
     }

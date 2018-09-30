@@ -5,16 +5,14 @@ import {StyleSheet,
   Text,
   Animated,
   Easing,
-  Image, StatusBar, View, ScrollView, AsyncStorage, ActivityIndicator } from 'react-native';
+  Image, StatusBar, View, AsyncStorage, ActivityIndicator } from 'react-native';
 import Dimensions from 'Dimensions';
 import { connect } from 'react-redux';
-import Container from './styles/Container';
-import Button from './styles/Button';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { WebBrowser, Linking } from 'expo';
 import Wallpaper from './styles/Wallpaper.js'
 import Logo from './styles/Logo';
-import spinner from './images/loading.gif';
+import spinner from '../assets/loading.gif';
 
 const DEVICE_WIDTH = Dimensions.get('window').width;
 const DEVICE_HEIGHT = Dimensions.get('window').height;
@@ -35,9 +33,6 @@ class LoginScreen extends React.Component {
     this.props.navigation.dispatch({ type: 'Login' })
     this.props.navigation.dispatch({ type: 'justLoggedIn',payload:this.state.redirectData })
   }
-  // componentDidMount(){
-  //   StatusBar.setNetworkActivityIndicatorVisible(false)
-  // }
   componentDidUpdate() {
     if (this.state.redirectData !== null) {
       return this._dispatchTwoActions();
@@ -107,16 +102,6 @@ class LoginScreen extends React.Component {
           />
         </Animated.View>
       </View>
-      <View style={styles.footer}>
-      <Container>
-          <Button 
-              label="Sign In"
-              styles={{button: styles.primaryButton, label: styles.buttonWhiteText}} 
-              onPress={() => {
-                this.props.navigation.dispatch({ type: 'Login' })
-                this.props.navigation.dispatch({ type: 'justLoggedIn' }) }}/>
-      </Container>
-      </View>
       </Wallpaper>
     )
   }
@@ -141,7 +126,6 @@ class LoginScreen extends React.Component {
   _handlePressAsync = async () => {
     let githubURL = 'https://github.com/login/oauth/authorize';
     let options = {
-      // client_id: 'c85c8afdfbb3457405cd',
       client_id: 'f749977a8455b627dc56',
       scope: 'read:user repo',
       state: 'autumn',
@@ -180,13 +164,19 @@ LoginScreen.propTypes = {
 };
 
 LoginScreen.navigationOptions = {
-  title: 'Login Page',
+  headerTitle: <View style={{ flexDirection: 'row',
+  alignItems: 'center',
+justifyContent: 'center',}} >
+  <Icon name="sign-in" size={40} color="#3B5699" /><Text style={{color: 'white',
+    fontWeight:'bold',
+    fontSize:20
+    }}>      LOGIN </Text></View>,
 };
-
+//
 const mapStateToProps = state => ({
   isLoggedIn: state.auth.isLoggedIn,
 });
-//const mapDispatchToProps = {dispatchLogin}
+
 
 export default connect(mapStateToProps)(LoginScreen);
 
@@ -223,6 +213,11 @@ const styles = StyleSheet.create({
   },
   text: {
     color: 'white',
+    backgroundColor: 'transparent',
+  },
+  logo: {
+    color: 'white',
+    fontWeight:'bold',
     backgroundColor: 'transparent',
   },
   image: {

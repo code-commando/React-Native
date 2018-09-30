@@ -1,10 +1,8 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import {
-  Animated,
-  Easing,
   Image,
-  Dimensions, TouchableOpacity,
-  Platform, View, Text, Button, FlatList,ImageBackground, StyleSheet, ActivityIndicator,
+  Dimensions,
+  Platform, View, Text, StyleSheet, ActivityIndicator,
   ScrollView
 } from 'react-native';
 import PropTypes from 'prop-types'
@@ -12,13 +10,7 @@ import Wallpaper from './styles/Wallpaper.js'
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
 import SelectInput from 'react-native-select-input-ios';
-import HTML from 'react-native-render-html';  
-import courselistImage from '../assets//courselist.jpg'
-// const API = 'http://192.168.29.186:3001/api/v1/user';
 const API = 'http://api.commando.ccs.net/api/v1/user';
-const courseImage = `
-<img src="../assets/courselist.jpg" />
-`;
 
 export class CoursesScreen extends React.Component {
   constructor(props) {
@@ -116,9 +108,7 @@ export class CoursesScreen extends React.Component {
     this.setState({ selectedLecture: 0 })
     this.setState({ courseToBePassed: selectedCourse.label })
     this.setState({ isLoading: true })
-    if (selectedCourse.label === '401n5') {
-      value = value + '/contents';
-    }
+  
     fetch(value).then(res => res.json())
       .then(courseContent => {
         let lecturesList = []
@@ -133,12 +123,6 @@ export class CoursesScreen extends React.Component {
             lecturesList.push(obj)
           }
         })
-        // courseContent.map((lecture,i)=>{
-        //   let obj = {}
-        //   obj.value=i+1
-        //   obj.label = lecture.name
-        //   lecturesList.push(obj)
-        // })
         this.setState({ lecturesList })
         this.setState({ isLoading: false })
         console.log('lectures', this.state.lecturesList)
@@ -161,7 +145,6 @@ export class CoursesScreen extends React.Component {
       return (
           <Wallpaper>
           <ScrollView contentContainerStyle={styles.scrollViewContentContainer}>
-          {/* <HTML html={courseImage} imagesInitialDimensions={{ width: 100,height: 200}}/> */}
           <Image style={{width:'25%',height:'40%',overflow:"visible"}} source={require('../assets/courselist.jpg')}/>
             <View style={styles.row}>
               <View style={styles.smallInputWrapper}>
@@ -234,14 +217,14 @@ const styles = StyleSheet.create({
   scrollViewContentContainer: {
     flex: 1,
     width: SCREEN_WIDTH,
-    padding: MARGIN_LARGE,
+    padding: 0,
     flexDirection: 'column',
     justifyContent: 'flex-start',
   },
   label: {
     fontSize: 18,
     fontWeight: 'bold',
-    marginTop: MARGIN_LARGE,
+    marginTop: 15,
   },
   row: {
     flexDirection: 'row',
@@ -296,65 +279,3 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
 });
-  //  const styles = StyleSheet.create({
-  //   container: {
-  //     flex: 1,
-  //     justifyContent: 'center',
-  //     alignItems: 'center',
-  //     backgroundColor: '#F5FCFF',
-  //     ...Platform.select({
-  //       ios: {
-  //         paddingTop: 20,
-  //       },
-  //     }),
-  //   },
-  //   button: {
-  //     alignItems: 'center',
-  //     justifyContent: 'center',
-  //     backgroundColor: '#F035E0',
-  //     height: 20,
-  //     borderRadius: 20,
-  //   },
-  //   name: {
-  //     fontSize: 18,
-  //     textAlign: 'center',
-  //   },
-  //   activityIndicator: {
-  //     flex: 1,
-  //     top: 200,
-  //     alignItems: 'center',
-  //     justifyContent: 'flex-start',
-  //  },
-  // row: {
-  //   flexDirection: 'row',
-  //   marginHorizontal: '5%',
-  //   alignItems: 'center',
-  //   justifyContent: 'center',
-  //   backgroundColor: '#660066',
-  //   padding: 10,
-  //   height: 95,
-  //   flex: 1,
-  //   marginTop: 2,
-  //   marginBottom: 5,
-  //   borderRadius: 4,
-  //   fontSize: 24,
-  //   color: '#FFFFFF',
-
-
-  //   ...Platform.select({
-  //     ios: {
-  //       width: window.width - 30 * 2,
-  //       shadowColor: 'rgba(0,0,0,0.2)',
-  //       shadowOpacity: 1,
-  //       shadowOffset: {height: 2, width: 2},
-  //       shadowRadius: 2,
-  //     },
-
-  //     android: {
-  //       width: window.width - 30 * 2,
-  //       elevation: 0,
-  //       marginHorizontal: 30,
-  //     },
-  //   })
-  // },
-  // });
