@@ -39,7 +39,6 @@ async componentDidMount(){
     .then((roster) => {
       
       let allStudents = (roster.results);
-      console.log(allStudents)
       this.setState({allStudents});
           })
 }

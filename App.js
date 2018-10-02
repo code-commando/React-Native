@@ -2,17 +2,18 @@ import React from 'react'
 import { StyleSheet, View,Image, StatusBar,AppRegistry,TouchableOpacity } from 'react-native'
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware,compose } from 'redux';
-import thunkMiddleware from 'redux-thunk';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import thunk from 'redux-thunk';
 import AppReducer from './reducer/index.js';
 import SideMenu from 'react-native-side-menu';
 import Menu from './components/SideMenuBar.js'
 import {AppNavigator,middleware} from './navigation/AppNavigation'
 import image from './assets/menu.png'
+import logger from './middleware/logger.js'
+const middlewares = [thunk,middleware,logger]
 // create store
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(AppReducer, composeWithDevTools(applyMiddleware(...middlewares)));
 
-const store = createStore(AppReducer, applyMiddleware(middleware));
-// const store = createStore(AppReducer, applyMiddleware(middleware));
 
 class App extends React.Component {
   constructor(props) {

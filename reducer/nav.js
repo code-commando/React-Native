@@ -2,8 +2,11 @@ import { NavigationActions } from 'react-navigation';
 import { RootNavigator } from '../navigation/AppNavigation.js';
 
 const firstAction = RootNavigator.router.getActionForPathAndParams('Home');
+
 const tempNavState = RootNavigator.router.getStateForAction(firstAction);
+
 const secondAction = RootNavigator.router.getActionForPathAndParams('Login');
+
 const initialNavState = RootNavigator.router.getStateForAction(
   secondAction,
   tempNavState
@@ -34,15 +37,6 @@ export default function reducer(state = initialNavState, action) {
       nextState = RootNavigator.router.getStateForAction(action, state);
       break;
   }
+  
   return nextState || state;
-}
-export function logout(){
-    return dispatch => {
-        dispatch({ type: 'Logout' });
-      }; 
-}
-export function login(){
-    return dispatch => {
-        dispatch(NavigationActions.navigate({ routeName: 'Login' }));
-      }; 
 }
