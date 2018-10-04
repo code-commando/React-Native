@@ -9,7 +9,7 @@ import {StyleSheet,
 import Dimensions from 'Dimensions';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { WebBrowser, Linking } from 'expo';
+import { WebBrowser, Linking, Constants } from 'expo';
 import Wallpaper from './styles/Wallpaper.js'
 import Logo from './styles/Logo';
 import spinner from '../assets/loading.gif';
@@ -24,6 +24,7 @@ class LoginScreen extends React.Component {
       redirectData: null,
       isLoading: false
     };
+    console.log('constants',Constants)
 
     this.buttonAnimated = new Animated.Value(0);
     this.growAnimated = new Animated.Value(0);
@@ -126,9 +127,9 @@ class LoginScreen extends React.Component {
   _handlePressAsync = async () => {
     let githubURL = 'https://github.com/login/oauth/authorize';
     let options = {
-      client_id: 'f749977a8455b627dc56',
+      client_id: Constants.manifest.extra.GITHUB_CLIENT_ID,
       scope: 'read:user repo',
-      state: 'autumn',
+      state: Constants.manifest.extra.SECRET,
       allow_signup: 'true',
     };
     let QueryString = Object.keys(options).map((key) => {
