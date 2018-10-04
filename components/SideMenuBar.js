@@ -28,11 +28,9 @@ class Menu extends React.Component{
           fetch(`https://api.github.com/user?access_token=${githubToken}`)
           .then(response => response.json())
           .then(user=>{
-            console.log('user',user.avatar_url)
             let uri = user.avatar_url;
             let name = user.name;
             this.setState({uri,name})
-            console.log('uri',this.state.uri)
             this.setState({isLoading:false})
           });
         })

@@ -10,7 +10,6 @@ import AwesomeAlert from 'react-native-awesome-alerts'
 import HTML from 'react-native-render-html';  
 import dog from '../assets/dogconfused.jpg';
 
-
 const htmlContent = `
 <br/>
     <h2 style="textAlign: center;">Select a Class Code and Day from 'Courses' tab</h2>
@@ -42,7 +41,6 @@ export class PairsScreen extends React.Component {
       .then((res) => res.json())
       .then((pairs) => {
         let studentPairs = (pairs.results);
-        console.log('students list',studentPairs)
         this.setState({isLoading:false})
         this.setState({ studentPairs });
       })
@@ -101,7 +99,8 @@ const mapStateToProps = state => ({
   tokens: state.auth.tokens,
   justLoggedIn: state.auth.justLoggedIn,
   day: state.auth.day,
-  classCode:state.auth.classCode
+  classCode:state.auth.classCode,
+  pairs:state.pairs,
 });
 
 export default connect(mapStateToProps)(PairsScreen);

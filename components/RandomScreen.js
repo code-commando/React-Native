@@ -45,8 +45,6 @@ async componentDidMount(){
 }
 }
     render() {
-      console.log('student',this.state.student)
-      console.log('class',this.props.classCode)
       if(this.props.day && this.props.classCode){
           if(this.state.student){
             return(

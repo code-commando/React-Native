@@ -83,7 +83,6 @@ export class CoursesScreen extends React.Component {
     const data = {};
     data.apiLink = item.apiLink;
     data.classCode = item.classCode;
-    console.log('text event', data)
     this.setState({ data })
     //this.props.navigation.dispatch({ type: 'CourseSelected',payload:data })
     //this._dispatchCourseSelectedAction();
@@ -125,7 +124,6 @@ export class CoursesScreen extends React.Component {
         })
         this.setState({ lecturesList })
         this.setState({ isLoading: false })
-        console.log('lectures', this.state.lecturesList)
       })
       .catch(error => {
         this.setState({ isLoading: false })

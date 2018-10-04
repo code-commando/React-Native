@@ -50,6 +50,7 @@ const RootNavigator = createStackNavigator({
       fontWeight: 'bold',
     },
   },transitionConfig: noTransitionConfig });
+  
 const AppWithNavigationState = reduxifyNavigator(RootNavigator, 'root');
 
 const mapStateToProps = state => ({

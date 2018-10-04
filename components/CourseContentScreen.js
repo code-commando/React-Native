@@ -11,7 +11,6 @@ import HTML from 'react-native-render-html';
 export class LectureContentScreen extends React.Component {
   constructor(props){
     super(props);
-    console.log('content props', this.props)
     this.state = {
       readme: '',
       isLoading:true,
